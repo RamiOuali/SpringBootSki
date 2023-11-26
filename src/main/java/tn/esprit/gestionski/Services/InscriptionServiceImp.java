@@ -1,8 +1,10 @@
 package tn.esprit.gestionski.Services;
 
+import lombok.extern.slf4j.Slf4j;
 import
 
         org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import tn.esprit.gestionski.entities.*;
@@ -13,6 +15,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.Date;
 import java.util.List;
+@Slf4j
 @Service
 public class InscriptionServiceImp implements IInscription {
     @Autowired
@@ -79,7 +82,7 @@ public class InscriptionServiceImp implements IInscription {
         int age = Period.between(birthDate, currentDate).getYears();
 
         if (cour.getTypeCours().equals(TypeCours.COLLECTIF_ADULTE) && age < 18) {
-            throw new IllegalArgumentException("Le skieur doit avoir au moins 18 ans pour s'inscrire à ce cours adulte.");
+            throw new IllegalArgumentException(" 18 ans pour  ce cours ");
         }
         inscription.setCours(cour);
         inscription.setSkieurs(skieur);
@@ -91,18 +94,9 @@ public class InscriptionServiceImp implements IInscription {
 
         return  inscriptionRepository.numWeeksCourseOfInstructorBySupport(numMoniteur,support);
     }
+
+
+
+
+
 }
- /*On désire ajouter une inscription et l’affecter à un skieur et à un cours donnés.
-
-▪ Créer le service adéquat et exposer le en respectant la signature suivante :
-
-P a r t i e 5 S e r v i c e s a v a n c é s
-
-Inscription addRegistrationAndAssignToSkierAndCourse(Inscription inscription,
-
-Long numSkieur, Long numCours);
-
-▪ N.B : L’inscription à un cours donné ne doit pas dépassé 6 Skieurs/Cours si le type de
-cours est Collectif (COLLECTIF_ENFANT ou COLLECTIF_ADULTE).
-
-▪ L'âge de Skieur est encore vérifié au moment de l’affectation.*/

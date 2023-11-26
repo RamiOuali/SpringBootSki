@@ -11,6 +11,7 @@ import tn.esprit.gestionski.repositories.InscriptionRepository;
 import tn.esprit.gestionski.repositories.PisteRepository;
 import tn.esprit.gestionski.repositories.SkieurRepository;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 @Slf4j
@@ -88,4 +89,19 @@ public class SkieurServiceImp implements ISkieur{
 
     }
 
+   // @Scheduled(fixedRate = 2000)
+    public void retrieveSubscriptions() {
+        LocalDate currentDate = LocalDate.now();
+        LocalDate endDate = currentDate.plusDays(7);
+        List<Skieur> skieurList = skieurRepository.findAll();
+        for (Skieur skieur : skieurList) {
+            Abonnement abonnement = skieur.getAbonnement();
+            if (abonnement != null && abonnement.getDateFin() != null && abonnement.getDateFin().isBefore(endDate)) {
+                System.out.println("Notification:"+skieur.getNumSkieur() + " "+ skieur.getNoms());
+            } else {
+                System.out.println("no problemo ");
+
+            }
+        }
+    }
 }
