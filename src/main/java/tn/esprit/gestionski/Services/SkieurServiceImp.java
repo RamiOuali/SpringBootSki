@@ -82,7 +82,7 @@ public class SkieurServiceImp implements ISkieur{
 
     }
   //  @Scheduled(fixedRate = 2000)
-    @Scheduled (cron = "0 0 0 ")
+   // @Scheduled (cron = "0 0 0 ")
     public void fixedRate(){
         log.info("methode with fixed rate");
 
